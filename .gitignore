@@ -1,2 +1,5 @@
 # api keys
 .env
+
+#remove
+.DS_Store
