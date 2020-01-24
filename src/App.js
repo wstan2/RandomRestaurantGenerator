@@ -11,14 +11,15 @@ class App extends React.Component {
       review_count: 0,
       data: [],
       searchLocation: null,
-      offset: 0
+      offset: Math.floor(Math.random() * 5) + 1,
+      rating: 0,
+      price: ""
     };
   }
 
   onFormSubmit = e => {
     this.setState({
-      searchLocation: e,
-      offset: Math.floor(Math.random() * 20) + 1
+      searchLocation: e
     });
     this.getRandRestaurant(this.state.offset, this.state.searchLocation);
   };
@@ -30,6 +31,9 @@ class App extends React.Component {
         {
           headers: {
             Authorization: `Bearer ${process.env.REACT_APP_API_YELP_KEY}`
+          },
+          params: {
+            categories: "food"
           }
         }
       )
@@ -37,9 +41,12 @@ class App extends React.Component {
         console.log(res);
 
         this.setState({
-          //data: this.state.data.concat(res.data.businesses),
-          data: res.data.businesses[Math.floor(Math.random() * 30) + 1],
-          offset: offset + 20
+          //data: this.state.data.concat(res.data.businesses)
+          data:
+            res.data.businesses[
+              Math.floor(Math.random() * (res.data.businesses.length - 1) + 1)
+            ],
+          offset: Math.floor(Math.random() * 5) + 1
         });
         console.log(`${this.state.data}`);
       })
@@ -54,6 +61,9 @@ class App extends React.Component {
       <div>
         <SearchForm onFormSubmit={this.onFormSubmit} />
         <h1>{this.state.data.name}</h1>
+        <h1>{this.state.data.review_count}</h1>
+        <h1>{this.state.data.rating}</h1>
+        <h1>{this.state.data.price}</h1>
       </div>
     );
   }
