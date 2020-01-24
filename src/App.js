@@ -1,22 +1,32 @@
-import React from "react";
+import React, { Component } from "react";
 import axios from "axios";
+
+import SearchForm from "./SearchForm";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       name: "",
-      rating: 0.0,
-      address: "",
-      city: "",
-      state: ""
+      review_count: 0,
+      data: [],
+      searchLocation: null,
+      offset: 0
     };
   }
 
-  componentDidMount() {
+  onFormSubmit = e => {
+    this.setState({
+      searchLocation: e,
+      offset: Math.floor(Math.random() * 20) + 1
+    });
+    this.getRandRestaurant(this.state.offset, this.state.searchLocation);
+  };
+
+  getRandRestaurant = (offset, searchLocation) => {
     axios
       .get(
-        `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/businesses/WavvLdfdP6g8aZTtbBQHTw`,
+        `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/businesses/search?offset=${offset}&location=${searchLocation}`,
         {
           headers: {
             Authorization: `Bearer ${process.env.REACT_APP_API_YELP_KEY}`
@@ -25,28 +35,25 @@ class App extends React.Component {
       )
       .then(res => {
         console.log(res);
+
         this.setState({
-          name: res.data.name,
-          rating: res.data.rating,
-          address: res.data.location.address1,
-          city: res.data.location.city,
-          state: res.data.location.state
+          //data: this.state.data.concat(res.data.businesses),
+          data: res.data.businesses[Math.floor(Math.random() * 30) + 1],
+          offset: offset + 20
         });
+        console.log(`${this.state.data}`);
       })
 
       .catch(err => {
         console.log("error");
       });
-  }
+  };
 
   render() {
     return (
       <div>
-        <h1>{this.state.name}</h1>
-        <span>{this.state.rating}</span>
-        <span>{this.state.address}</span>
-        <span>{this.state.city}</span>
-        <span>{this.state.state}</span>
+        <SearchForm onFormSubmit={this.onFormSubmit} />
+        <h1>{this.state.data.name}</h1>
       </div>
     );
   }
