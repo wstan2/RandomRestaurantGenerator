@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import Weather from "./Weather";
+
 class SearchForm extends Component {
 	constructor(props) {
 		super(props);
