@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import Weather from "./Weather";
-
 class SearchForm extends Component {
 	constructor(props) {
 		super(props);
@@ -24,17 +22,19 @@ class SearchForm extends Component {
 
 	render() {
 		return (
-			<form onSubmit={e => this.handleFormSubmit(e)}>
-				<div>
-					<label>Location</label>
-					<input
-						type="text"
-						value={this.state.searchLocation}
-						onChange={this.handleLocationChange}
-					/>
-				</div>
-				<button type="submit">Submit</button>
-			</form>
+			<div class="search">
+				<form onSubmit={e => this.handleFormSubmit(e)}>
+					<div>
+						<label>Location</label>
+						<input
+							type="text"
+							value={this.state.searchLocation}
+							onChange={this.handleLocationChange}
+						/>
+					</div>
+					<button type="submit">Submit</button>
+				</form>
+			</div>
 		);
 	}
 }

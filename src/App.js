@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import SearchForm from "./SearchForm";
+import "./App.css";
 
 const API_KEY = process.env.REACT_APP_API_WEATHER_KEY;
 
@@ -115,15 +116,34 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <SearchForm onFormSubmit={this.onFormSubmit} />
-        <h1>Restaurant: {this.state.data.name}</h1>
-        <h1>Review count: {this.state.data.review_count}</h1>
-        <h1>Rating: {this.state.data.rating}</h1>
-        <h1>Price: {this.state.data.price}</h1>
-        <h1>Todays Temperature: {this.state.temperature}</h1>
-        <h1>Reviews: {this.state.review1}</h1>
-        <h1>{this.state.review2}</h1>
-        <h1>{this.state.review3}</h1>
+        <div class="Title-Container">
+          <div class="Title">Random Restaurant Generator</div>
+
+          <div class="Test">
+            <div class="Reviews">
+              <SearchForm onFormSubmit={this.onFormSubmit} />
+              <ul>
+                <li>Restaurant: {this.state.data.name}</li>
+                <li>Review count: {this.state.data.review_count}</li>
+                <li>Rating: {this.state.data.rating}</li>
+                <li>Price: {this.state.data.price}</li>
+                <li>Current Temperature: {this.state.temperature}</li>
+                <br></br>
+                <li>Reviews:</li>
+                <br></br>
+                {this.state.review1}
+                <br></br>
+                <br></br>
+                {this.state.review2}
+                <br></br>
+                <br></br>
+                {this.state.review3}
+                <br></br>
+                <br></br>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
