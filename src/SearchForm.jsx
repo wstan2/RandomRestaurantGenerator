@@ -32,7 +32,8 @@ class SearchForm extends Component {
 							onChange={this.handleLocationChange}
 						/>
 					</div>
-					<button type="submit">Submit</button>
+					<br></br>
+					<button class="button">Submit</button>
 				</form>
 			</div>
 		);
